@@ -1,0 +1,39 @@
+{
+  "name" : "group1usersMusicCurated",
+  "description" : "",
+  "role" : "arn:aws:iam::114652167878:role/AWSGlueAndS3RoleGrupo2",
+  "executionProperty" : {
+    "maxConcurrentRuns" : 1
+  },
+  "command" : {
+    "name" : "glueetl",
+    "scriptLocation" : "s3://aws-glue-assets-114652167878-us-east-1/scripts/group1usersMusicCurated.py",
+    "pythonVersion" : "3"
+  },
+  "defaultArguments" : {
+    "--enable-metrics" : "true",
+    "--enable-spark-ui" : "true",
+    "--spark-event-logs-path" : "s3://aws-glue-assets-114652167878-us-east-1/sparkHistoryLogs/",
+    "--enable-job-insights" : "true",
+    "--enable-glue-datacatalog" : "true",
+    "--enable-continuous-cloudwatch-log" : "true",
+    "--job-bookmark-option" : "job-bookmark-enable",
+    "--job-language" : "python",
+    "--TempDir" : "s3://aws-glue-assets-114652167878-us-east-1/temporary/"
+  },
+  "maxRetries" : 3,
+  "allocatedCapacity" : 10,
+  "timeout" : 2880,
+  "maxCapacity" : 10.0,
+  "glueVersion" : "3.0",
+  "numberOfWorkers" : 10,
+  "workerType" : "G.1X",
+  "executionClass" : "STANDARD",
+  "codeGenConfigurationNodes" : "{\"node-1\":{\"S3CsvSource\":{\"AdditionalOptions\":{\"EnableSamplePath\":false,\"SamplePath\":\"s3://group1-data/raw/userCanciones.tsv\"},\"Escaper\":\"\",\"Exclusions\":[],\"Name\":\"S3 bucket\",\"OptimizePerformance\":false,\"OutputSchemas\":[{\"Columns\":[{\"Name\":\"userid\",\"Type\":\"string\"},{\"Name\":\"timestamp\",\"Type\":\"string\"},{\"Name\":\"artid\",\"Type\":\"string\"},{\"Name\":\"artname\",\"Type\":\"string\"},{\"Name\":\"traid\",\"Type\":\"string\"},{\"Name\":\"traname\",\"Type\":\"choice\"}]}],\"Paths\":[\"s3://group1-data/raw/userCanciones.tsv\"],\"QuoteChar\":\"quote\",\"Recurse\":true,\"Separator\":\"tab\",\"WithHeader\":true}},\"node-1668094793373\":{\"ApplyMapping\":{\"Inputs\":[\"node-1\"],\"Mapping\":[{\"Dropped\":false,\"FromPath\":[\"userid\"],\"FromType\":\"string\",\"ToKey\":\"userid\",\"ToType\":\"string\"},{\"Dropped\":false,\"FromPath\":[\"timestamp\"],\"FromType\":\"string\",\"ToKey\":\"timestamp\",\"ToType\":\"string\"},{\"Dropped\":false,\"FromPath\":[\"artid\"],\"FromType\":\"string\",\"ToKey\":\"artid\",\"ToType\":\"string\"},{\"Dropped\":false,\"FromPath\":[\"artname\"],\"FromType\":\"string\",\"ToKey\":\"artname\",\"ToType\":\"string\"},{\"Dropped\":true,\"FromPath\":[\"traid\"],\"FromType\":\"string\",\"ToKey\":\"traid\",\"ToType\":\"string\"},{\"Dropped\":true,\"FromPath\":[\"traname\"],\"FromType\":\"choice\",\"ToKey\":\"traname\",\"ToType\":\"choice\"}],\"Name\":\"Change Schema (Apply Mapping)\"}},\"node-1668094819102\":{\"S3DirectTarget\":{\"Compression\":\"none\",\"Format\":\"csv\",\"Inputs\":[\"node-1668094793373\"],\"Name\":\"Amazon S3\",\"PartitionKeys\":[],\"Path\":\"s3://group1-data/curated/user-music/\",\"SchemaChangePolicy\":{\"EnableUpdateCatalog\":false}}}}",
+  "sourceControlDetails" : {
+    "provider" : "GITHUB",
+    "repository" : "proyecto_grupo_1",
+    "branch" : "main",
+    "folder" : "src"
+  }
+}
