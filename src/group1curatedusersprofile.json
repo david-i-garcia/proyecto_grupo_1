@@ -1,0 +1,39 @@
+{
+  "name" : "group1curatedusersprofile",
+  "description" : "",
+  "role" : "arn:aws:iam::114652167878:role/AWSGlueAndS3RoleGrupo2",
+  "executionProperty" : {
+    "maxConcurrentRuns" : 1
+  },
+  "command" : {
+    "name" : "glueetl",
+    "scriptLocation" : "s3://aws-glue-assets-114652167878-us-east-1/scripts/group1curatedusersprofile.py",
+    "pythonVersion" : "3"
+  },
+  "defaultArguments" : {
+    "--enable-metrics" : "true",
+    "--enable-spark-ui" : "true",
+    "--spark-event-logs-path" : "s3://aws-glue-assets-114652167878-us-east-1/sparkHistoryLogs/",
+    "--enable-job-insights" : "true",
+    "--enable-glue-datacatalog" : "true",
+    "--enable-continuous-cloudwatch-log" : "true",
+    "--job-bookmark-option" : "job-bookmark-enable",
+    "--job-language" : "python",
+    "--TempDir" : "s3://aws-glue-assets-114652167878-us-east-1/temporary/"
+  },
+  "maxRetries" : 3,
+  "allocatedCapacity" : 10,
+  "timeout" : 2880,
+  "maxCapacity" : 10.0,
+  "glueVersion" : "3.0",
+  "numberOfWorkers" : 10,
+  "workerType" : "G.1X",
+  "executionClass" : "STANDARD",
+  "codeGenConfigurationNodes" : "{\"node-1668081780562\":{\"ApplyMapping\":{\"Inputs\":[\"node-1\"],\"Mapping\":[{\"Dropped\":false,\"FromPath\":[\"#id\"],\"FromType\":\"string\",\"ToKey\":\"id\",\"ToType\":\"string\"},{\"Dropped\":false,\"FromPath\":[\"gender\"],\"FromType\":\"string\",\"ToKey\":\"gender\",\"ToType\":\"string\"},{\"Dropped\":false,\"FromPath\":[\"age\"],\"FromType\":\"string\",\"ToKey\":\"age\",\"ToType\":\"long\"},{\"Dropped\":false,\"FromPath\":[\"country\"],\"FromType\":\"string\",\"ToKey\":\"country\",\"ToType\":\"string\"},{\"Dropped\":false,\"FromPath\":[\"registered\"],\"FromType\":\"string\",\"ToKey\":\"registered\",\"ToType\":\"string\"}],\"Name\":\"Change Schema (Apply Mapping)\"}},\"node-1\":{\"S3CsvSource\":{\"AdditionalOptions\":{\"EnableSamplePath\":false,\"SamplePath\":\"s3://grupo2-s3/raw/userid-profile.tsv\"},\"Escaper\":\"\",\"Exclusions\":[],\"Name\":\"S3 bucket\",\"OptimizePerformance\":false,\"OutputSchemas\":[{\"Columns\":[{\"Name\":\"#id\",\"Type\":\"string\"},{\"Name\":\"gender\",\"Type\":\"string\"},{\"Name\":\"age\",\"Type\":\"string\"},{\"Name\":\"country\",\"Type\":\"string\"},{\"Name\":\"registered\",\"Type\":\"string\"}]}],\"Paths\":[\"s3://grupo2-s3/raw/userid-profile.tsv\"],\"QuoteChar\":\"quote\",\"Recurse\":true,\"Separator\":\"tab\",\"WithHeader\":true}},\"node-1668081906991\":{\"S3DirectTarget\":{\"Compression\":\"none\",\"Format\":\"csv\",\"Inputs\":[\"node-1668081780562\"],\"Name\":\"Amazon S3\",\"PartitionKeys\":[],\"Path\":\"s3://group1-data/curated/userProfile/\",\"SchemaChangePolicy\":{\"EnableUpdateCatalog\":false}}}}",
+  "sourceControlDetails" : {
+    "provider" : "GITHUB",
+    "repository" : "proyecto_grupo_1",
+    "branch" : "main",
+    "folder" : "src"
+  }
+}
